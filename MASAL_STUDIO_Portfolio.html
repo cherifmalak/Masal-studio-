@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MASAL STUDIO | Modern Web Siteleri, Güçlü Dijital Varlık</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              50: '#edf6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#172554',
+              accent: '#0066ff'
+            },
+            surface: {
+              dark: '#070b19',
+              card: '#0d1527',
+              lighter: '#131e38',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom sleek scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070b19;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    .glass-nav {
+      background: rgba(7, 11, 25, 0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .glass-card {
+      background: rgba(13, 21, 39, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(59, 130, 246, 0.38);
+      box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.18);
+    }
+
+    .ambient-grid {
+      background-size: 44px 44px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    }
+
+    .glow-blue {
+      box-shadow: 0 0 50px -10px rgba(59, 130, 246, 0.35);
+    }
+  </style>
+</head>
+<body class="bg-surface-dark text-slate-200 font-sans antialiased selection:bg-brand-500 selection:text-white relative overflow-x-hidden min-h-screen">
+
+  <!-- TOP NAVIGATION HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-nav border-b border-surface-border">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo (Direct Google Drive Image with local fallback) -->
+      <a href="#" class="flex items-center gap-3.5 group">
+        <div class="relative w-12 h-12 rounded-xl overflow-hidden bg-gradient-to-br from-brand-600 to-indigo-950 p-0.5 shadow-lg shadow-brand-600/30 ring-1 ring-white/20 group-hover:scale-105 transition-transform flex items-center justify-center">
+          <img 
+            src="https://lh3.googleusercontent.com/d/1vVpnYcJmKXxmmYfZHGn76PuHTmJFE-fc" 
+            alt="MASAL STUDIO Logo" 
+            class="w-full h-full object-cover rounded-xl"
+            onerror="this.onerror=null; this.src='587754984_18051985340680363_2175526455905626830_n.jpg';"
+          />
+        </div>
+        
+        <div class="flex flex-col">
+          <span class="text-base font-extrabold tracking-widest text-white uppercase group-hover:text-brand-300 transition-colors">MASAL STUDIO</span>
+          <span class="text-[10px] text-slate-400 font-medium tracking-tight uppercase">Web Tasarım & Çözümler</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#hizmetler" class="hover:text-white hover:text-brand-300 transition-colors">Hizmetlerimiz</a>
+        <a href="#projeler" class="hover:text-white hover:text-brand-300 transition-colors">Projelerimiz</a>
+        <a href="#hakkimizda" class="hover:text-white hover:text-brand-300 transition-colors">Hakkımızda</a>
+        <a href="#paketler" class="hover:text-white hover:text-brand-300 transition-colors">Paketler</a>
+      </nav>
+
+      <!-- Desktop Contact Button -->
+      <div class="hidden md:flex items-center gap-4">
+        <a 
+          href="https://wa.me/905078704373?text=Merhaba,%20web%20sitesi%20hizmetleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-600/30 active:scale-95 transition-all"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12.031 2C6.496 2 2 6.5 2 12.046c0 1.93.548 3.734 1.503 5.272L2 22l4.856-1.472A9.97 9.97 0 0012.03 22c5.536 0 10.031-4.501 10.031-10.046C22.062 6.499 17.568 2 12.031 2zm5.82 14.34c-.244.686-1.22 1.258-1.705 1.332-.457.069-1.047.098-3.084-.746-2.607-1.077-4.28-3.712-4.41-3.886-.128-.175-1.047-1.393-1.047-2.656 0-1.264.664-1.884.9-2.146.236-.263.515-.328.686-.328.172 0 .344.002.493.01.157.009.367-.06.574.437.214.515.73 1.777.794 1.908.064.13.107.284.021.457-.085.174-.128.283-.257.436-.128.152-.27.34-.385.457-.129.13-.263.272-.113.53.15.258.666 1.097 1.427 1.775.98.874 1.805 1.145 2.063 1.274.257.129.408.108.558-.065.15-.172.643-.75.815-1.008.172-.258.344-.215.579-.129.236.086 1.499.707 1.756.836.257.129.429.193.493.301.064.108.064.623-.18 1.309z"/>
+          </svg>
+          <span>WhatsApp İletişim</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuBtn" class="md:hidden text-slate-300 hover:text-white p-2" aria-label="Menü">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobileMenu" class="hidden md:hidden px-6 pt-3 pb-6 bg-surface-dark/95 border-b border-surface-border backdrop-blur-xl">
+      <div class="flex flex-col gap-3 text-sm">
+        <a href="#hizmetler" class="mob-link py-2 border-b border-white/5 text-slate-200">Hizmetlerimiz</a>
+        <a href="#projeler" class="mob-link py-2 border-b border-white/5 text-slate-200">Projelerimiz</a>
+        <a href="#hakkimizda" class="mob-link py-2 border-b border-white/5 text-slate-200">Hakkımızda</a>
+        <a href="#paketler" class="mob-link py-2 border-b border-white/5 text-slate-200">Paketler</a>
+        <a href="https://wa.me/905078704373" target="_blank" class="text-center py-3 rounded-xl bg-brand-600 font-bold text-white text-xs mt-2">WhatsApp'tan İletişime Geç</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-36 pb-20 md:pt-48 md:pb-32 ambient-grid overflow-hidden">
+    <!-- Ambient Blue Glows -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-600/15 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+    <div class="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-sky-500/10 rounded-full blur-[110px] pointer-events-none -z-10"></div>
+
+    <div class="max-w-5xl mx-auto px-5 sm:px-8 text-center">
+      
+      <!-- Studio Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-500/10 border border-brand-400/20 text-brand-300 text-xs font-semibold tracking-wider uppercase mb-8 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+        MASAL STUDIO • Web Tasarım & Dijital Çözümler
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.12] mb-6">
+        Modern Web Siteleri,<br class="hidden sm:inline">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-brand-400">
+          Güçlü Dijital Varlık.
+        </span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed mb-10">
+        İşletmenizin dijital dünyadaki ilk izlenimini profesyonel, modern ve kullanıcı odaklı web siteleriyle güçlendiriyoruz.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <a 
+          href="#projeler" 
+          class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm bg-white text-surface-dark hover:bg-slate-100 shadow-xl shadow-white/10 active:scale-95 transition-all duration-200"
+        >
+          Projelerimizi İncele
+        </a>
+        <a 
+          href="#iletisim" 
+          class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-sm bg-surface-card text-white border border-surface-border hover:bg-white/5 hover:border-brand-400/40 active:scale-95 transition-all duration-200"
+        >
+          İletişime Geç
+        </a>
+      </div>
+
+      <!-- Hero Visual Showcase / Modern Studio Card -->
+      <div class="relative max-w-4xl mx-auto rounded-2xl glass-card p-3 sm:p-4 glow-blue">
+        <div class="rounded-xl overflow-hidden border border-white/5 bg-surface-dark">
+          <!-- Browser Top Bar -->
+          <div class="h-10 px-4 bg-slate-900/90 border-b border-white/5 flex items-center justify-between text-xs text-slate-400">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+              <span class="ml-2 font-mono text-[11px] text-slate-400">masalstudio.com</span>
+            </div>
+            <div class="flex items-center gap-3 text-[11px] font-medium text-emerald-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Canlı ve Aktif
+            </div>
+          </div>
+          
+          <!-- Mock Showcase Body -->
+          <div class="p-6 sm:p-10 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            <div class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
+              <div class="text-2xl font-bold text-white mb-1">%100</div>
+              <div class="text-xs text-slate-400">Mobil Uyumlu & Responsive Tasarım</div>
+            </div>
+            <div class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
+              <div class="text-2xl font-bold text-brand-400 mb-1">4.900 TL+</div>
+              <div class="text-xs text-slate-400">Şeffaf ve Erişilebilir Paketler</div>
+            </div>
+            <div class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
+              <div class="text-2xl font-bold text-white mb-1">Hızlı Teslim</div>
+              <div class="text-xs text-slate-400">Özel Tasarlanmış Kurumsal Çözümler</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section id="hizmetler" class="py-20 md:py-28 relative border-t border-surface-border">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      
+      <div class="text-center max-w-xl mx-auto mb-16">
+        <p class="text-xs uppercase tracking-widest text-brand-400 font-bold mb-2">Hizmetlerimiz</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Markanızı Öne Çıkaran Çözümler
+        </h2>
+      </div>
+
+      <!-- 4 Clean Services Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- 1. Web Tasarımı -->
+        <div class="glass-card rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400 flex items-center justify-center mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">1. Web Tasarımı</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Modern, hızlı ve mobil uyumlu web siteleri.
+            </p>
+          </div>
+        </div>
+
+        <!-- 2. Kurumsal Web Siteleri -->
+        <div class="glass-card rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400 flex items-center justify-center mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">2. Kurumsal Web Siteleri</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Markanızı profesyonel şekilde tanıtan kurumsal web çözümleri.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3. Landing Page -->
+        <div class="glass-card rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400 flex items-center justify-center mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">3. Landing Page</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Ürün, hizmet ve kampanyalar için yüksek dönüşüm odaklı landing page tasarımları.
+            </p>
+          </div>
+        </div>
+
+        <!-- 4. E-Ticaret -->
+        <div class="glass-card rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400 flex items-center justify-center mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">4. E-Ticaret</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Ürünlerinizi online satışa taşıyan modern e-ticaret çözümleri.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO SECTION -->
+  <section id="projeler" class="py-20 md:py-28 bg-[#050813] relative border-t border-surface-border">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      
+      <!-- Section Header -->
+      <div class="max-w-2xl mb-16">
+        <p class="text-xs uppercase tracking-widest text-brand-400 font-bold mb-2">Referanslarımız</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">Projelerimiz</h2>
+        <p class="text-base text-slate-400">
+          Farklı sektörler için tasarladığımız web projelerinden bazıları.
+        </p>
+      </div>
+
+      <!-- 4 Real Project Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- PROJECT 1: Özel Ölçü Clinic -->
+        <div class="glass-card rounded-2xl overflow-hidden flex flex-col group">
+          <!-- Browser Shell Top -->
+          <div class="bg-slate-900/95 border-b border-white/5 p-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/70"></span>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400 truncate max-w-[220px]">ozelolcuclinic.durable.site</span>
+            <div class="w-4"></div>
+          </div>
+          
+          <!-- Mock Website Card Preview Area -->
+          <div class="p-6 sm:p-7 bg-gradient-to-b from-[#0c162d] to-surface-card border-b border-white/5 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                Sağlık / Klinik Web Sitesi
+              </span>
+              <span class="text-xs text-slate-400">Canlı Proje</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white group-hover:text-brand-300 transition-colors">
+              Özel Ölçü Clinic
+            </h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Modern ve güven veren bir klinik web sitesi tasarımı.
+            </p>
+          </div>
+
+          <!-- Bottom Action Bar -->
+          <div class="p-6 flex items-center justify-between mt-auto bg-surface-dark/40">
+            <span class="text-xs text-slate-400">Durable Altyapısı</span>
+            <a 
+              href="https://ozelolcuclinic.durable.site/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-brand-600 text-white text-xs font-bold tracking-wide uppercase transition-all duration-200"
+            >
+              <span>Projeyi İncele</span>
+              <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- PROJECT 2: Kutu Ambalaj Sanatı -->
+        <div class="glass-card rounded-2xl overflow-hidden flex flex-col group">
+          <div class="bg-slate-900/95 border-b border-white/5 p-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/70"></span>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400 truncate max-w-[220px]">kutuambalajsanati.myikas.com</span>
+            <div class="w-4"></div>
+          </div>
+          
+          <div class="p-6 sm:p-7 bg-gradient-to-b from-[#0c162d] to-surface-card border-b border-white/5 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-300 border border-brand-500/20">
+                E-Ticaret
+              </span>
+              <span class="text-xs text-slate-400">Canlı Proje</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white group-hover:text-brand-300 transition-colors">
+              Kutu Ambalaj Sanatı
+            </h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Ambalaj ürünleri için hazırlanan modern e-ticaret web sitesi.
+            </p>
+          </div>
+
+          <div class="p-6 flex items-center justify-between mt-auto bg-surface-dark/40">
+            <span class="text-xs text-slate-400">ikas E-Ticaret</span>
+            <a 
+              href="https://2bj21-kutuambalajsanati.myikas.com/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-brand-600 text-white text-xs font-bold tracking-wide uppercase transition-all duration-200"
+            >
+              <span>Projeyi İncele</span>
+              <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- PROJECT 3: Kutudan Kutuya -->
+        <div class="glass-card rounded-2xl overflow-hidden flex flex-col group">
+          <div class="bg-slate-900/95 border-b border-white/5 p-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/70"></span>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400 truncate max-w-[220px]">kutudankutuya.com</span>
+            <div class="w-4"></div>
+          </div>
+          
+          <div class="p-6 sm:p-7 bg-gradient-to-b from-[#0c162d] to-surface-card border-b border-white/5 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/20">
+                E-Ticaret / Ambalaj
+              </span>
+              <span class="text-xs text-slate-400">Canlı Proje</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white group-hover:text-brand-300 transition-colors">
+              Kutudan Kutuya
+            </h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Ambalaj ve kutu ürünleri için profesyonel online mağaza.
+            </p>
+          </div>
+
+          <div class="p-6 flex items-center justify-between mt-auto bg-surface-dark/40">
+            <span class="text-xs text-slate-400">Özel Alan Adı</span>
+            <a 
+              href="https://www.kutudankutuya.com/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-brand-600 text-white text-xs font-bold tracking-wide uppercase transition-all duration-200"
+            >
+              <span>Projeyi İncele</span>
+              <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- PROJECT 4: Dorossera -->
+        <div class="glass-card rounded-2xl overflow-hidden flex flex-col group">
+          <div class="bg-slate-900/95 border-b border-white/5 p-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/70"></span>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400 truncate max-w-[220px]">dorossera.net/en</span>
+            <div class="w-4"></div>
+          </div>
+          
+          <div class="p-6 sm:p-7 bg-gradient-to-b from-[#0c162d] to-surface-card border-b border-white/5 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/10 text-sky-300 border border-sky-500/20">
+                Online Eğitim Platformu
+              </span>
+              <span class="text-xs text-slate-400">Canlı Proje</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white group-hover:text-brand-300 transition-colors">
+              Dorossera
+            </h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Online dil eğitimi platformu için kapsamlı ve profesyonel web tasarımı.
+            </p>
+          </div>
+
+          <div class="p-6 flex items-center justify-between mt-auto bg-surface-dark/40">
+            <span class="text-xs text-slate-400">Uluslararası Platform</span>
+            <a 
+              href="https://www.dorossera.net/en/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-brand-600 text-white text-xs font-bold tracking-wide uppercase transition-all duration-200"
+            >
+              <span>Projeyi İncele</span>
+              <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- PROJECT 5: Mommy's Waffles -->
+        <div class="glass-card rounded-2xl overflow-hidden flex flex-col group md:col-span-2 lg:col-span-1">
+          <div class="bg-slate-900/95 border-b border-white/5 p-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/70"></span>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400 truncate max-w-[240px]">mommys-waffles-menu.nourych20...</span>
+            <div class="w-4"></div>
+          </div>
+          
+          <div class="p-6 sm:p-7 bg-gradient-to-b from-[#0c162d] to-surface-card border-b border-white/5 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/20">
+                Restoran / Dijital QR Menü
+              </span>
+              <span class="text-xs text-slate-400">Canlı Proje</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white group-hover:text-brand-300 transition-colors">
+              Mommy's Waffles
+            </h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Kafe ve tatlı işletmeleri için modern, iştah açıcı ve mobil odaklı dijital menü tasarımı.
+            </p>
+          </div>
+
+          <div class="p-6 flex items-center justify-between mt-auto bg-surface-dark/40">
+            <span class="text-xs text-slate-400">İnteraktif Menü</span>
+            <a 
+              href="https://mommys-waffles-menu.nourych20.chatgpt.site" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-brand-600 text-white text-xs font-bold tracking-wide uppercase transition-all duration-200"
+            >
+              <span>Projeyi İncele</span>
+              <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="iletisim" class="py-20 md:py-28 relative border-t border-surface-border">
+    <div class="max-w-4xl mx-auto px-5 sm:px-8 text-center">
+      
+      <p class="text-xs uppercase tracking-widest text-brand-400 font-bold mb-2">İletişim</p>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+        Projenizi Birlikte Hayata Geçirelim
+      </h2>
+      <p class="text-base text-slate-300 max-w-xl mx-auto leading-relaxed mb-12">
+        İşletmeniz için modern ve profesyonel bir web sitesi hazırlamak ister misiniz?
+      </p>
+
+      <!-- Contact Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+        
+        <!-- WhatsApp -->
+        <a 
+          href="https://wa.me/905078704373?text=Merhaba,%20web%20tasar%C4%B1m%20hakk%C4%B1nda%20g%C3%B6r%C3%BC%C5%9Fmek%20istiyorum." 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center gap-3 group hover:border-emerald-500/40"
+        >
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+              <path d="M12.031 2C6.496 2 2 6.5 2 12.046c0 1.93.548 3.734 1.503 5.272L2 22l4.856-1.472A9.97 9.97 0 0012.03 22c5.536 0 10.031-4.501 10.031-10.046C22.062 6.499 17.568 2 12.031 2zm5.82 14.34c-.244.686-1.22 1.258-1.705 1.332-.457.069-1.047.098-3.084-.746-2.607-1.077-4.28-3.712-4.41-3.886-.128-.175-1.047-1.393-1.047-2.656 0-1.264.664-1.884.9-2.146.236-.263.515-.328.686-.328.172 0 .344.002.493.01.157.009.367-.06.574.437.214.515.73 1.777.794 1.908.064.13.107.284.021.457-.085.174-.128.283-.257.436-.128.152-.27.34-.385.457-.129.13-.263.272-.113.53.15.258.666 1.097 1.427 1.775.98.874 1.805 1.145 2.063 1.274.257.129.408.108.558-.065.15-.172.643-.75.815-1.008.172-.258.344-.215.579-.129.236.086 1.499.707 1.756.836.257.129.429.193.493.301.064.108.064.623-.18 1.309z"/>
+            </svg>
+          </div>
+          <span class="text-sm font-bold text-white group-hover:text-emerald-400">WhatsApp'tan İletişime Geç</span>
+          <span class="text-xs text-slate-400 font-mono">+90 507 870 43 73</span>
+        </a>
+
+        <!-- Instagram -->
+        <a 
+          href="https://www.instagram.com/masal_studio_tr/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center gap-3 group hover:border-pink-500/40"
+        >
+          <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </div>
+          <span class="text-sm font-bold text-white group-hover:text-pink-400">Instagram</span>
+          <span class="text-xs text-slate-400">@masal_studio_tr</span>
+        </a>
+
+        <!-- E-posta -->
+        <a 
+          href="mailto:masalstudio694@gmail.com" 
+          class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center gap-3 group hover:border-brand-500/40"
+        >
+          <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <span class="text-sm font-bold text-white group-hover:text-brand-300">E-posta</span>
+          <span class="text-xs text-slate-400 truncate max-w-full">masalstudio694@gmail.com</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-surface-border bg-black/60">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        
+        <!-- Logo & Studio Slogan -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg overflow-hidden bg-brand-600 p-0.5 flex items-center justify-center ring-1 ring-white/20">
+            <img 
+              src="https://lh3.googleusercontent.com/d/1vVpnYcJmKXxmmYfZHGn76PuHTmJFE-fc" 
+              alt="MASAL STUDIO Logo" 
+              class="w-full h-full object-cover rounded-md"
+              onerror="this.onerror=null; this.src='587754984_18051985340680363_2175526455905626830_n.jpg';"
+            />
+          </div>
+          <div>
+            <h4 class="text-sm font-extrabold text-white tracking-widest uppercase">MASAL STUDIO</h4>
+            <p class="text-xs text-slate-400">Web Tasarım & Dijital Çözümler</p>
+          </div>
+        </div>
+
+        <!-- Social Quick Links -->
+        <div class="flex items-center gap-6 text-xs text-slate-400">
+          <a href="https://wa.me/905078704373" target="_blank" class="hover:text-emerald-400 transition-colors">
+            +90 507 870 43 73
+          </a>
+          <span>•</span>
+          <a href="https://www.instagram.com/masal_studio_tr/" target="_blank" class="hover:text-pink-400 transition-colors">
+            @masal_studio_tr
+          </a>
+          <span>•</span>
+          <a href="mailto:masalstudio694@gmail.com" class="hover:text-brand-300 transition-colors">
+            masalstudio694@gmail.com
+          </a>
+        </div>
+
+        <!-- Copyright -->
+        <p class="text-xs text-slate-500 font-normal">
+          © 2026 MASAL STUDIO. Tüm hakları saklıdır.
+        </p>
+
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple responsive mobile navigation toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobLinks = document.querySelectorAll('.mob-link');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    mobLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+  </script>
+</body>
+</html>
