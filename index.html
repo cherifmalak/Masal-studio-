@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MASAL STUDIO | استوديو تصميم وتطوير المواقع الاحترافية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #070b14;
+      --bg-card: rgba(15, 23, 42, 0.7);
+      --border-card: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(56, 189, 248, 0.3);
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.4);
+      --accent: #6366f1;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Tajawal', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Ambient Glow Background */
+    .glow-sphere {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(99, 102, 241, 0.08) 50%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+    }
+    .glow-1 { top: -150px; right: -100px; }
+    .glow-2 { bottom: -150px; left: -100px; }
+
+    /* Top Bar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-card);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .brand-logo-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(99,102,241,0.2));
+      border: 1px solid var(--border-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+    }
+
+    .brand-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-name {
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name span:first-child {
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .brand-name span:last-child {
+      font-size: 0.72rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Floating Capsule Tab Bar (From Video) */
+    .tabs-nav {
+      display: flex;
+      align-items: center;
+      background: rgba(30, 41, 59, 0.6);
+      padding: 6px;
+      border-radius: 50px;
+      border: 1px solid var(--border-card);
+      backdrop-filter: blur(15px);
+      gap: 4px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      color: #fff;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--accent), #4f46e5);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-contact {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+      padding: 9px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+      transition: 0.3s;
+    }
+
+    .btn-contact:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+    }
+
+    /* Main Container & Tab Panes */
+    main {
+      flex: 1;
+      position: relative;
+      z-index: 10;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .tab-content {
+      display: none;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 1. Hero Tab (الرئيسية) */
+    .hero-view {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--border-glow);
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 3.8rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #ffffff 40%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-avatar-wrap {
+      position: relative;
+      margin: 25px 0 35px;
+      width: 170px;
+      height: 170px;
+    }
+
+    .hero-avatar-glow {
+      position: absolute;
+      inset: -10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--primary-glow) 0%, rgba(99,102,241,0.2) 60%, transparent 80%);
+      animation: pulse 3s infinite alternate;
+    }
+
+    .hero-avatar {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      overflow: hidden;
+      background: #0f172a;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hero-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.6; }
+      100% { transform: scale(1.05); opacity: 1; }
+    }
+
+    .hero-desc {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      line-height: 1.7;
+      margin-bottom: 35px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-main {
+      background: linear-gradient(135deg, var(--accent), #4f46e5);
+      color: #fff;
+      padding: 14px 34px;
+      border-radius: 35px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
+    }
+
+    /* 2. Works Tab (أعمالنا - Carousel Slider) */
+    .works-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .carousel-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      perspective: 1000px;
+      margin-top: 20px;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 20px 10px;
+      scrollbar-width: none;
+      width: 100%;
+      scroll-behavior: smooth;
+    }
+
+    .carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .project-card {
+      flex: 0 0 320px;
+      scroll-snap-align: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(15px);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--primary);
+      box-shadow: 0 15px 35px rgba(56, 189, 248, 0.25);
+    }
+
+    .card-preview {
+      height: 200px;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 1px solid var(--border-card);
+      overflow: hidden;
+    }
+
+    .card-preview i {
+      font-size: 4rem;
+      color: var(--primary);
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    .project-card:hover .card-preview i {
+      transform: scale(1.15);
+      color: #fff;
+    }
+
+    .card-category {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border-glow);
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    .card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--border-glow);
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+
+    .card-link:hover {
+      background: var(--primary);
+      color: #070b14;
+    }
+
+    .carousel-arrows {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 25px;
+    }
+
+    .arrow-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--border-card);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .arrow-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* 3. About Tab (من نحن) */
+    .about-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 28px;
+      padding: 45px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 40px;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .about-image {
+      width: 100%;
+      height: 240px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid var(--border-glow);
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-details h3 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .about-details p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      line-height: 1.8;
+      margin-bottom: 25px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-card);
+      padding: 10px 20px;
+      border-radius: 30px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: 0.3s;
+    }
+
+    .social-badge:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* 4. Stats Tab (إنجازاتنا - Animated Counters) */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .stat-card {
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid var(--border-card);
+      border-radius: 24px;
+      padding: 35px 20px;
+      text-align: center;
+      backdrop-filter: blur(20px);
+      transition: 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 15px 30px rgba(99, 102, 241, 0.25);
+    }
+
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    .stat-number {
+      font-size: 3.4rem;
+      font-weight: 900;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    /* 5. Services Tab (خدماتنا) */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .service-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 22px;
+      padding: 30px;
+      transition: 0.3s;
+    }
+
+    .service-box:hover {
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.15);
+    }
+
+    .service-box i {
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin-bottom: 18px;
+      display: inline-block;
+    }
+
+    .service-box h4 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .service-box p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+      }
+      .tabs-nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        justify-content: flex-start;
+      }
+      .tab-btn {
+        padding: 6px 14px;
+        font-size: 0.85rem;
+        white-space: nowrap;
+      }
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      .about-card {
+        grid-template-columns: 1fr;
+        padding: 25px;
+        text-align: center;
+      }
+      .about-image {
+        margin: 0 auto;
+        width: 160px;
+        height: 160px;
+      }
+      .social-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- الخلفية المضيئة -->
+  <div class="glow-sphere glow-1"></div>
+  <div class="glow-sphere glow-2"></div>
+
+  <!-- الشريط العلوي والتنقل التفاعلي من الفيديو -->
+  <header>
+    <a href="#" class="brand">
+      <div class="brand-logo-wrap">
+        <img src="https://lh3.googleusercontent.com/d/1vVpnYcJmKXxmmYfZHGn76PuHTmJFE-fc" alt="MASAL STUDIO Logo" onerror="this.src='https://lh3.googleusercontent.com/d/1oAyka-4RXwHSBPtoNba5W_kZMIIntQHe';">
+      </div>
+      <div class="brand-name">
+        <span>MASAL STUDIO</span>
+        <span>WEB TASARIM & ÇÖZÜMLER</span>
+      </div>
+    </a>
+
+    <!-- التبويبات الفورية العائمة -->
+    <nav class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('hero', this)">
+        <i class="fa-solid fa-house"></i> الرئيسية
+      </button>
+      <button class="tab-btn" onclick="switchTab('works', this)">
+        <i class="fa-solid fa-folder-open"></i> أعمالنا
+      </button>
+      <button class="tab-btn" onclick="switchTab('about', this)">
+        <i class="fa-solid fa-user-tie"></i> من نحن
+      </button>
+      <button class="tab-btn" onclick="switchTab('services', this)">
+        <i class="fa-solid fa-layer-group"></i> خدماتنا
+      </button>
+      <button class="tab-btn" onclick="switchTab('stats', this)">
+        <i class="fa-solid fa-trophy"></i> إنجازاتنا
+      </button>
+    </nav>
+
+    <div class="header-actions">
+      <a href="https://wa.me/905078704373" target="_blank" class="btn-contact">
+        <i class="fa-brands fa-whatsapp"></i> واتساب
+      </a>
+    </div>
+  </header>
+
+  <!-- الحاوية الأساسية للأقسام -->
+  <main>
+    
+    <!-- 1. الرئيسية (Hero) -->
+    <section id="tab-hero" class="tab-content active hero-view">
+      <div class="hero-badge">
+        <i class="fa-solid fa-bolt"></i> استوديو تصميم مواقع فاخرة وعصرية
+      </div>
+      
+      <h1 class="hero-title">
+        خلّ موقعك يتكلّم عن <span>قوة علامتك.</span>
+      </h1>
+
+      <div class="hero-avatar-wrap">
+        <div class="hero-avatar-glow"></div>
+        <div class="hero-avatar">
+          <img src="https://lh3.googleusercontent.com/d/1vVpnYcJmKXxmmYfZHGn76PuHTmJFE-fc" alt="MASAL STUDIO" onerror="this.src='https://lh3.googleusercontent.com/d/1oAyka-4RXwHSBPtoNba5W_kZMIIntQHe';">
+        </div>
+      </div>
+
+      <p class="hero-desc">
+        في <strong>MASAL STUDIO</strong> نصنع تجارب رقمية استثنائية للشركات والمتاجر في تركيا والعالم، بتصاميم سريعة، متجاوبة ومصممة خصيصاً لمضاعفة مبيعاتك.
+      </p>
+
+      <div class="hero-btns">
+        <button class="btn-main" onclick="switchTab('works', document.querySelectorAll('.tab-btn')[1])">
+          استكشف أعمالنا <i class="fa-solid fa-arrow-left" style="margin-right: 6px;"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. أعمالنا (Works Carousel) -->
+    <section id="tab-works" class="tab-content">
+      <div class="works-header">
+        <h2 class="section-title">أعمال مختارة</h2>
+        <p class="section-subtitle">نماذج حقيقية لمواقع ومتاجر أطلقناها بنجاح</p>
+      </div>
+
+      <div class="carousel-container">
+        <div class="carousel-track" id="worksTrack">
+          
+          <!-- مشروع 1: Özel Ölçü Clinic -->
+          <div class="project-card">
+            <div class="card-preview">
+              <span class="card-category">عيادات وصحة</span>
+              <i class="fa-solid fa-stethoscope"></i>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Özel Ölçü Clinic</h3>
+              <p class="card-desc">موقع طبي فاخر يعكس الهوية الاحترافية للعيادة مع نظام حجز استشارات سلس.</p>
+              <a href="https://ozelolcuclinic.com" target="_blank" class="card-link">
+                معاينة الموقع <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- مشروع 2: Kutu Ambalaj Sanatı -->
+          <div class="project-card">
+            <div class="card-preview">
+              <span class="card-category">تجارة وصناعة</span>
+              <i class="fa-solid fa-box-open"></i>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Kutu Ambalaj Sanatı</h3>
+              <p class="card-desc">متجر ومتكامل لشركة تعبئة وتغليف مع عرض مميز للمنتجات وسرعة تحميل فائقة.</p>
+              <a href="https://kutuambalajsanati.com" target="_blank" class="card-link">
+                معاينة الموقع <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- مشروع 3: Mommy's Waffles -->
+          <div class="project-card">
+            <div class="card-preview">
+              <span class="card-category">مطاعم و كافيهات</span>
+              <i class="fa-solid fa-utensils"></i>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Mommy's Waffles</h3>
+              <p class="card-desc">قائمة طعام رقمية تفاعلية (QR Menu) مخصصة للزبائن بتصميم بصري جذاب.</p>
+              <a href="https://mommys-waffles-menu.nourych20.chatgpt.site" target="_blank" class="card-link">
+                معاينة المنيو <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- مشروع 4: Dorossera -->
+          <div class="project-card">
+            <div class="card-preview">
+              <span class="card-category">تعليم عن بعد</span>
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Dorossera e-school</h3>
+              <p class="card-desc">منصة تعليمية إلكترونية حديثة لتعليم اللغات والدورات عن بعد.</p>
+              <a href="https://dorossera.net" target="_blank" class="card-link">
+                معاينة المنصة <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="carousel-arrows">
+        <button class="arrow-btn" onclick="scrollWorks(340)"><i class="fa-solid fa-chevron-right"></i></button>
+        <button class="arrow-btn" onclick="scrollWorks(-340)"><i class="fa-solid fa-chevron-left"></i></button>
+      </div>
+    </section>
+
+    <!-- 3. من نحن (About) -->
+    <section id="tab-about" class="tab-content">
+      <div class="about-card">
+        <div class="about-image">
+          <img src="https://lh3.googleusercontent.com/d/1vVpnYcJmKXxmmYfZHGn76PuHTmJFE-fc" alt="MASAL STUDIO" onerror="this.src='https://lh3.googleusercontent.com/d/1oAyka-4RXwHSBPtoNba5W_kZMIIntQHe';">
+        </div>
+        <div class="about-details">
+          <h3>MASAL STUDIO</h3>
+          <p>
+            نحن استوديو متخصص في ابتكار وتصميم المواقع الإلكترونية، واجهات الهبوط، والمتاجر الرقمية للعلامات التجارية الطموحة في تركيا والشرق الأوسط. نهتم بأدق التفاصيل البصرية والتقنية لضمان تحويل زوار موقعك إلى عملاء فعليين.
+          </p>
+          <div class="social-links">
+            <a href="https://instagram.com/masal_studio_tr" target="_blank" class="social-badge">
+              <i class="fa-brands fa-instagram"></i> @masal_studio_tr
+            </a>
+            <a href="mailto:masalstudio694@gmail.com" class="social-badge">
+              <i class="fa-solid fa-envelope"></i> masalstudio694@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. خدماتنا (Services) -->
+    <section id="tab-services" class="tab-content">
+      <div class="works-header">
+        <h2 class="section-title">خدماتنا الاحترافية</h2>
+        <p class="section-subtitle">حلول رقمية شاملة تنقل عملك لمستوى أعلى</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-box">
+          <i class="fa-solid fa-laptop-code"></i>
+          <h4>تصميم المواقع التعريفية</h4>
+          <p>مواقع شركات راقية تعزز موثوقيتك أمام عملائك وتبرز هويتك المؤسسية باحترافية.</p>
+        </div>
+        <div class="service-box">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <h4>المتاجر الإلكترونية</h4>
+          <p>متاجر بيع متكاملة وسريعة متوافقة مع بوابات الدفع وشاشات الهواتف لزيادة المبيعات.</p>
+        </div>
+        <div class="service-box">
+          <i class="fa-solid fa-bullseye"></i>
+          <h4>صفحات الهبوط (Landing Pages)</h4>
+          <p>صفحات ترويجية مركزة ومعدة خصيصاً للحملات الإعلانية لتحقيق أعلى نسبة تحويل.</p>
+        </div>
+        <div class="service-box">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+          <h4>قوائم الطعام الرقمية (QR Menu)</h4>
+          <p>حلول مبتكرة للمطاعم والكافيهات تمكن الزبائن من استعراض المنيو والطلب بلمسة زر.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. إنجازاتنا (Stats Counters - مثل الفيديو) -->
+    <section id="tab-stats" class="tab-content">
+      <div class="works-header">
+        <h2 class="section-title">أرقام وإنجازات</h2>
+        <p class="section-subtitle">نتائج نفتخر بتحقيقها مع شركائنا في النجاح</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+          <div class="stat-number" data-target="100">0</div>
+          <div class="stat-label">عميل سعيد ومستمر</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-briefcase"></i></div>
+          <div class="stat-number" data-target="50">0</div>
+          <div class="stat-label">مشروع ناجح تم تسليمه</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
+          <div class="stat-number" data-target="5">0</div>
+          <div class="stat-label">سنوات خبرة في المجال</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="stat-number" data-target="100">0</div>
+          <div class="stat-label">% ضمان جودة وسرعة</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // التبديل الفوري بين التبويبات (SPA Navigation)
+    function switchTab(tabId, btn) {
+      // إزالة التنشيط من جميع التبويبات
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+      // تفعيل التبويب المختار
+      btn.classList.add('active');
+      const activeContent = document.getElementById('tab-' + tabId);
+      if (activeContent) {
+        activeContent.classList.add('active');
+      }
+
+      // تشغيل عدّادات الإنجازات إذا تم اختيار تبويب الإنجازات
+      if (tabId === 'stats') {
+        startCounters();
+      }
+    }
+
+    // تحريك السلايدر الخاص بالأعمال
+    function scrollWorks(offset) {
+      const track = document.getElementById('worksTrack');
+      track.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+
+    // تأثير حركة العدّادات الرقمية (Animated Counters)
+    let countersStarted = false;
+    function startCounters() {
+      const counters = document.querySelectorAll('.stat-number');
+      counters.forEach(counter => {
+        counter.innerText = '0';
+        const target = +counter.getAttribute('data-target');
+        const increment = target / 40;
+        
+        const updateCount = () => {
+          const current = +counter.innerText.replace('+', '').replace('%', '');
+          if (current < target) {
+            counter.innerText = '+' + Math.ceil(current + increment);
+            setTimeout(updateCount, 25);
+          } else {
+            counter.innerText = (target === 100 && counter.parentElement.innerText.includes('%') ? '' : '+') + target + (counter.parentElement.innerText.includes('%') ? '%' : '');
+          }
+        };
+        updateCount();
+      });
+    }
+  </script>
+</body>
+</html>
